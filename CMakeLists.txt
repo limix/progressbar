@@ -30,12 +30,12 @@ endif()
 file(STRINGS "VERSION" PROGRESSBAR_VERSION)
 
 include_directories(include)
-include_directories(lib)
-add_subdirectory(lib)
+include_directories(src)
+add_subdirectory(src)
 add_subdirectory(test)
 
-add_library(progressbar SHARED lib/progressbar.c lib/statusbar.c)
-add_library(progressbar_static STATIC lib/progressbar.c lib/statusbar.c)
+add_library(progressbar SHARED src/progressbar.c src/statusbar.c)
+add_library(progressbar_static STATIC src/progressbar.c src/statusbar.c)
 
 set_target_properties(progressbar
   PROPERTIES

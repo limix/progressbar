@@ -1,3 +1,7 @@
+# ProgressBar
+
+[![Travis](https://img.shields.io/travis/limix/progressbar.svg?style=flat-square)](https://travis-ci.org/limix/progressbar)
+
 ## What is this thing?
 
 progressbar is a C-class (it's a convention, dammit) for displaying attractive
