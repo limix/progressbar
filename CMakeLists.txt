@@ -34,8 +34,8 @@ include_directories(src)
 add_subdirectory(src)
 add_subdirectory(test)
 
-add_library(progressbar SHARED src/progressbar.c src/statusbar.c)
-add_library(progressbar_static STATIC src/progressbar.c src/statusbar.c)
+add_library(progressbar SHARED src/progressbar.c)
+add_library(progressbar_static STATIC src/progressbar.c)
 
 set_target_properties(progressbar
   PROPERTIES
@@ -54,4 +54,3 @@ install(TARGETS progressbar_static
         LIBRARY DESTINATION lib
     PUBLIC_HEADER DESTINATION include/progressbar)
 target_link_libraries(progressbar_static ${CURSES_LIBRARIES})
-
