@@ -23,8 +23,18 @@ Example output (from `test/demo.c`):
 
 ![demo output](example_output/demo.png)
 
+## Problems
+
+If you encounter any issue, please, [submit it](https://github.com/limix/progressbar/issues).
+
 ## Acknowledgements
 
+* **Danilo Horta** - [https://github.com/horta](https://github.com/horta)
 * **Johannes Buchner** - [https://github.com/JohannesBuchner](https://github.com/JohannesBuchner)
 * **Mariano Anaya** - [https://github.com/rmariano](https://github.com/rmariano)
 * **Trevor Fountain** - [https://github.com/doches](https://github.com/doches)
+
+## License
+
+This project is licensed under the MIT License - see the
+[LICENSE](LICENSE) file for details
