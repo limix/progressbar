@@ -1,0 +1,20 @@
+dist: trusty
+sudo: required
+language: c
+compiler:
+- clang
+- gcc
+before_script:
+- mkdir build && pushd build && cmake .. && make && make test
+  && popd
+- rm -rf build
+script:
+- mkdir dist && pushd dist && cmake .. && popd
+#- mv dist bgen-`cat VERSION`
+#- tar czf bgen-`cat VERSION`.tar.gz bgen-`cat VERSION`
+#- rm -rf dist
+after_failure:
+- rm -rf * && cmake .. && make && make test ARGS="-V"
+notifications:
+  email: false
+
