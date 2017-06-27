@@ -3,6 +3,7 @@ os: Windows Server 2012
 environment:
   matrix:
   - PRINTF_EXPONENT_DIGITS: "2"
+  - BUILD_TYPE: Release
 
 install:
   - set HOME=.
@@ -20,7 +21,6 @@ install:
       mingw-w64-x86_64-ncurses
       mingw-w64-x86_64-readline
       mingw-w64-x86_64-cmake
-      make
       diffutils
     \""
   - ps: Get-Command sh.exe -All | Remove-Item
@@ -29,10 +29,8 @@ install:
 build_script:
   - mkdir build
   - cd build
-  - cmake .. -G"MSYS Makefiles" -DCMAKE_WINDOWS_EXPORT_ALL_SYMBOLS=TRUE
-  - find .
-  - which make
-  - make
+  - cmake .. -G "MinGW Makefiles" -DCMAKE_WINDOWS_EXPORT_ALL_SYMBOLS=TRUE -DCMAKE_BUILD_TYPE=%BUILD_TYPE%
+  - cmake --build . --config %BUILD_TYPE% --target install
   # - makep
   # - make test
   # - make install
