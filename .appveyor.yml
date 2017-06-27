@@ -22,5 +22,4 @@ build_script:
   - cd build
   - cmake .. -G "MinGW Makefiles" -DCMAKE_WINDOWS_EXPORT_ALL_SYMBOLS=TRUE -DCMAKE_BUILD_TYPE=%BUILD_TYPE%
   - cmake --build . --config %BUILD_TYPE% --target install
-  - find .
   - test\demo.exe
