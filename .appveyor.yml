@@ -1,9 +1,8 @@
 os: Windows Server 2012
 
 environment:
-  matrix:
   - PRINTF_EXPONENT_DIGITS: "2"
-  - BUILD_TYPE: Release
+    BUILD_TYPE: Release
 
 install:
   - set HOME=.
