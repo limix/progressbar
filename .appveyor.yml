@@ -32,9 +32,11 @@ build_script:
   - mkdir build
   - cd build
   - cmake .. -G "MinGW Makefiles" -DCMAKE_WINDOWS_EXPORT_ALL_SYMBOLS=TRUE
-  - make
-  - make test
-  - make install
+  - find .
+  - which make.exe
+  # - makep
+  # - make test
+  # - make install
 
 # build: off
 # platform: x64
