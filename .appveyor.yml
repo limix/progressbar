@@ -1,35 +1,73 @@
-build: off
-platform: x64
-clone_depth: 5
+os: Windows Server 2012
+
 environment:
-  MINGWPREFIX: x86_64-w64-mingw32
+  matrix:
+  - PRINTF_EXPONENT_DIGITS: "2"
 
 install:
   - set HOME=.
   - set MSYSTEM=MINGW64
   - set PATH=C:/msys64/usr/bin;C:/msys64/mingw64/bin;%PATH%
+  - set MINGWPREFIX=x86_64-w64-mingw32
   - set CC=%MINGWPREFIX%-gcc.exe
   - set CXX=%MINGWPREFIX%-g++.exe
+  - set FC=%MINGWPREFIX%-gfortran.exe
   - "sh -lc \"pacman -S --noconfirm --needed
+      mingw-w64-x86_64-openblas
       mingw-w64-x86_64-arpack
       mingw-w64-x86_64-gcc
+      mingw-w64-x86_64-gcc-fortran
       mingw-w64-x86_64-ncurses
       mingw-w64-x86_64-readline
       mingw-w64-x86_64-cmake
       mingw-w64-x86_64-make
       diffutils
     \""
+  - find C:/msys64/usr/bin
+  - find C:/msys64/mingw64/bin
   - ps: Get-Command sh.exe -All | Remove-Item
 
+
 build_script:
-  - set HOME=.
-  - set MSYSTEM=MINGW64
-  - set PATH=C:/msys64/usr/bin;C:/msys64/mingw64/bin;%PATH%
-  - set CC=%MINGWPREFIX%-gcc.exe
-  - set CXX=%MINGWPREFIX%-g++.exe
   - mkdir build
   - cd build
   - cmake .. -G "MinGW Makefiles" -DCMAKE_WINDOWS_EXPORT_ALL_SYMBOLS=TRUE
   - make
   - make test
   - make install
+
+# build: off
+# platform: x64
+# clone_depth: 5
+# environment:
+#   MINGWPREFIX: x86_64-w64-mingw32
+#
+# install:
+#   - set HOME=.
+#   - set MSYSTEM=MINGW64
+#   - set PATH=C:/msys64/usr/bin;C:/msys64/mingw64/bin;%PATH%
+#   - set CC=%MINGWPREFIX%-gcc.exe
+#   - set CXX=%MINGWPREFIX%-g++.exe
+#   - "sh -lc \"pacman -S --noconfirm --needed
+#       mingw-w64-x86_64-arpack
+#       mingw-w64-x86_64-gcc
+#       mingw-w64-x86_64-ncurses
+#       mingw-w64-x86_64-readline
+#       mingw-w64-x86_64-cmake
+#       mingw-w64-x86_64-make
+#       diffutils
+#     \""
+#   - ps: Get-Command sh.exe -All | Remove-Item
+#
+# build_script:
+#   - set HOME=.
+#   - set MSYSTEM=MINGW64
+#   - set PATH=C:/msys64/usr/bin;C:/msys64/mingw64/bin;%PATH%
+#   - set CC=%MINGWPREFIX%-gcc.exe
+#   - set CXX=%MINGWPREFIX%-g++.exe
+#   - mkdir build
+#   - cd build
+#   - cmake .. -G "MinGW Makefiles" -DCMAKE_WINDOWS_EXPORT_ALL_SYMBOLS=TRUE
+#   - make
+#   - make test
+#   - make install
