@@ -21,7 +21,12 @@ set(CMAKE_POSITION_INDEPENDENT_CODE ON)
 
 set(CURSES_NEED_NCURSES TRUE)
 find_package(Curses)
-include_directories(${CURSES_INCLUDE_DIRS})
+
+message(STATUS "CURSES_FOUND: ${CURSES_FOUND}")
+
+if (CURSES_FOUND)
+  include_directories(${CURSES_INCLUDE_DIRS})
+endif()
 
 if(${CMAKE_SYSTEM_NAME} MATCHES "Windows")
   add_definitions(-D_CRT_SECURE_NO_WARNINGS)
@@ -34,7 +39,10 @@ include_directories(src)
 add_subdirectory(src)
 
 add_library(progressbar SHARED src/progressbar.c)
+target_compile_definitions(progressbar PRIVATE CURSES_FOUND=${CURSES_FOUND})
+
 add_library(progressbar_static STATIC src/progressbar.c)
+target_compile_definitions(progressbar_static PRIVATE CURSES_FOUND=${CURSES_FOUND})
 
 set_target_properties(progressbar
   PROPERTIES
