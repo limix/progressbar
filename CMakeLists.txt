@@ -19,10 +19,10 @@ set(CMAKE_MACOSX_RPATH 1)
 set(CMAKE_BUILD_TYPE Release)
 set(CMAKE_POSITION_INDEPENDENT_CODE ON)
 
-set(CURSES_NEED_NCURSES TRUE)
+# set(CURSES_NEED_NCURSES TRUE)
 # find_package(Curses)
 
-message(STATUS "CURSES_FOUND: ${CURSES_FOUND}")
+# message(STATUS "CURSES_FOUND: ${CURSES_FOUND}")
 
 if (CURSES_FOUND)
   include_directories(${CURSES_INCLUDE_DIRS})
@@ -38,11 +38,15 @@ include_directories(include)
 include_directories(src)
 add_subdirectory(src)
 
+if (CURSES_FOUND)
+  add_definitions(-DCURSES_FOUND)
+else ()
+  add_definitions(-DCURSES_NOTFOUND)
+endif()
+
 add_library(progressbar SHARED src/progressbar.c)
-target_compile_definitions(progressbar PRIVATE CURSES_FOUND=${CURSES_FOUND})
 
 add_library(progressbar_static STATIC src/progressbar.c)
-target_compile_definitions(progressbar_static PRIVATE CURSES_FOUND=${CURSES_FOUND})
 
 set_target_properties(progressbar
   PROPERTIES
