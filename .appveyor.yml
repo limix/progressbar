@@ -20,11 +20,9 @@ install:
       mingw-w64-x86_64-ncurses
       mingw-w64-x86_64-readline
       mingw-w64-x86_64-cmake
-      mingw-w64-x86_64-make
+      make
       diffutils
     \""
-  - find C:/msys64/usr/bin
-  - find C:/msys64/mingw64/bin
   - ps: Get-Command sh.exe -All | Remove-Item
 
 
@@ -34,6 +32,7 @@ build_script:
   - cmake .. -G "MinGW Makefiles" -DCMAKE_WINDOWS_EXPORT_ALL_SYMBOLS=TRUE
   - find .
   - which make.exe
+  - make
   # - makep
   # - make test
   # - make install
