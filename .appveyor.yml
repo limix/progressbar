@@ -11,8 +11,6 @@ install:
   - set MINGWPREFIX=x86_64-w64-mingw32
   - set CC=%MINGWPREFIX%-gcc.exe
   - "sh -lc \"pacman -S --noconfirm --needed
-      mingw-w64-x86_64-openblas
-      mingw-w64-x86_64-arpack
       mingw-w64-x86_64-gcc
       mingw-w64-x86_64-ncurses
       mingw-w64-x86_64-readline
