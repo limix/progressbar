@@ -13,14 +13,20 @@ imitates.
 ```c
 #include "progressbar.h"
 
-progressbar *progress = progressbar_new("Loading", 100);
-
-for(int i=0; i < 100; i++)
+int main()
 {
-  // Do some stuff
-  progressbar_inc(progress);
+  progressbar *progress = progressbar_new("Loading", 100);
+
+  for(int i=0; i < 100; i++)
+  {
+    // Do some stuff
+    progressbar_inc(progress);
+  }
+
+  progressbar_finish(progress);
+
+  return 0;
 }
-progressbar_finish(progress);
 ```
 
 Example output (from `test/demo.c`):
@@ -31,32 +37,30 @@ Example output (from `test/demo.c`):
 
 On Linux or macOS systems it can be as simple as
 ```bash
-wget https://github.com/limix/progressbar/archive/0.1.2.tar.gz
-tar xzf 0.1.2.tar.gz
-cd progressbar-0.1.2
+wget https://github.com/limix/progressbar/archive/0.1.1.tar.gz
+tar xzf 0.1.1.tar.gz
+cd progressbar-0.1.1
 mkdir build
 cd build
 cmake ..
 make
 sudo make install
 ```
-assuming that you have the [ncurses](https://www.gnu.org/software/ncurses/)
+assuming that you have [ncurses](https://www.gnu.org/software/ncurses/)
 library installed and that ``cmake`` managed to find it.
 
 On Windows systems you might want to have a look at the
-[msys2](http://www.msys2.org) project.
+[msys2](http://www.msys2.org) project first.
 It provides Unix-like environment making it easier to install, use, build and
 port software on Windows.
-In particular, we need `gcc`, `ncurses`, and `cmake` packages:
+In particular, it can be used to install `gcc`, `ncurses`, and `cmake`:
 
 ```dos
-pacman -S --needed ^
-    mingw-w64-x86_64-gcc ^
-    mingw-w64-x86_64-ncurses ^
-    mingw-w64-x86_64-cmake
+pacman -S --needed mingw-w64-x86_64-gcc mingw-w64-x86_64-ncurses ^
+                   mingw-w64-x86_64-cmake
 ```
 
-From `progressbar` source directory, do
+Now from `progressbar` source directory, proceed with
 ```dos
 mkdir build
 cd build
