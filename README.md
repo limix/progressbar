@@ -29,7 +29,7 @@ int main()
 }
 ```
 
-Example output (from `test/demo.c`):
+Example output from `test/demo.c`:
 
 ![demo output](demo.gif)
 
@@ -65,7 +65,7 @@ Now from `progressbar` source directory, proceed with
 mkdir build
 cd build
 cmake .. -G "MinGW Makefiles" -DCMAKE_WINDOWS_EXPORT_ALL_SYMBOLS=TRUE ^
-         -DCMAKE_BUILD_TYPE=%BUILD_TYPE%
+                              -DCMAKE_BUILD_TYPE=Release
 cmake --build . --config Release --target install
 ```
 
