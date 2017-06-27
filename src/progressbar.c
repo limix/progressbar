@@ -1,4 +1,7 @@
-#include <termcap.h> /* tgetent, tgetnum */
+#ifdef CURSES_FOUND
+# include <termcap.h> /* tgetent, tgetnum */
+#endif /* ifdef CURSES_FOUND */
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -120,6 +123,8 @@ static int progressbar_max(int x, int y) {
 }
 
 static unsigned int get_screen_width(void) {
+#ifdef CURSES_FOUND
+
     char termbuf[2048];
 
     if (tgetent(termbuf, getenv("TERM")) >= 0) {
@@ -127,6 +132,12 @@ static unsigned int get_screen_width(void) {
     } else {
         return DEFAULT_SCREEN_WIDTH;
     }
+
+#else /* ifdef CURSES_FOUND */
+
+    return DEFAULT_SCREEN_WIDTH;
+
+#endif /* ifdef CURSES_FOUND */
 }
 
 static int progressbar_bar_width(int screen_width, int label_length) {

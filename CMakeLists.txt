@@ -21,7 +21,15 @@ set(CMAKE_POSITION_INDEPENDENT_CODE ON)
 
 set(CURSES_NEED_NCURSES TRUE)
 find_package(Curses)
-include_directories(${CURSES_INCLUDE_DIRS})
+
+if (NOT CURSES_FOUND)
+  message(WARNING "curses and/or ncurses libraries could not be found. "
+                  "We have to asssume a fixed terminal width in that case.")
+endif()
+
+if (CURSES_FOUND)
+  include_directories(${CURSES_INCLUDE_DIRS})
+endif()
 
 if(${CMAKE_SYSTEM_NAME} MATCHES "Windows")
   add_definitions(-D_CRT_SECURE_NO_WARNINGS)
@@ -33,7 +41,14 @@ include_directories(include)
 include_directories(src)
 add_subdirectory(src)
 
+if (CURSES_FOUND)
+  add_definitions(-DCURSES_FOUND)
+else ()
+  add_definitions(-DCURSES_NOTFOUND)
+endif()
+
 add_library(progressbar SHARED src/progressbar.c)
+
 add_library(progressbar_static STATIC src/progressbar.c)
 
 set_target_properties(progressbar

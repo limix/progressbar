@@ -12,7 +12,6 @@ install:
   - set CC=%MINGWPREFIX%-gcc.exe
   - "sh -lc \"pacman -S --noconfirm --needed
       mingw-w64-x86_64-gcc
-      mingw-w64-x86_64-ncurses
       mingw-w64-x86_64-cmake
     \""
   - ps: Get-Command sh.exe -All | Remove-Item
@@ -23,3 +22,4 @@ build_script:
   - cd build
   - cmake .. -G "MinGW Makefiles" -DCMAKE_WINDOWS_EXPORT_ALL_SYMBOLS=TRUE -DCMAKE_BUILD_TYPE=%BUILD_TYPE%
   - cmake --build . --config %BUILD_TYPE% --target install
+  - test\demo.exe
