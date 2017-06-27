@@ -19,14 +19,13 @@ set(CMAKE_MACOSX_RPATH 1)
 set(CMAKE_BUILD_TYPE Release)
 set(CMAKE_POSITION_INDEPENDENT_CODE ON)
 
-# set(CURSES_NEED_NCURSES TRUE)
-# find_package(Curses)
+set(CURSES_NEED_NCURSES TRUE)
+find_package(Curses)
 
 if (NOT CURSES_FOUND)
-  message(WARNING "curses and ncurses libraries were not found.")
-  message("We have to limit the terminal width to 80 characters in that case.")
+  message(WARNING "curses and/or ncurses libraries could not be found. "
+                  "We have to asssume a fixed terminal width in that case.")
 endif()
-# message(STATUS "CURSES_FOUND: ${CURSES_FOUND}")
 
 if (CURSES_FOUND)
   include_directories(${CURSES_INCLUDE_DIRS})
