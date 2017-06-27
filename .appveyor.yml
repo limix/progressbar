@@ -29,9 +29,9 @@ install:
 build_script:
   - mkdir build
   - cd build
-  - cmake .. -G "MinGW Makefiles" -DCMAKE_WINDOWS_EXPORT_ALL_SYMBOLS=TRUE
+  - cmake .. -G"MSYS Makefiles" -DCMAKE_WINDOWS_EXPORT_ALL_SYMBOLS=TRUE
   - find .
-  - which make.exe
+  - which make
   - make
   # - makep
   # - make test
