@@ -1,9 +1,5 @@
 build: off
 platform: x64
-image: Visual Studio 2015
-environment:
-  PLATFORM: "x64"
-  CONFIGURATION: "Release"
 
 install:
   - set HOME=.
@@ -20,6 +16,8 @@ install:
       mingw-w64-x86_64-gcc-fortran
       mingw-w64-x86_64-ncurses
       mingw-w64-x86_64-readline
+      mingw-w64-x86_64-cmake
+      mingw-w64-x86_64-make
       diffutils
     \""
 
