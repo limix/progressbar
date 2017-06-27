@@ -19,6 +19,7 @@ install:
       mingw-w64-x86_64-make
       diffutils
     \""
+  - ps: Get-Command sh.exe -All | Remove-Item
 
 build_script:
   - set HOME=.
