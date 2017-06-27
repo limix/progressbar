@@ -26,7 +26,7 @@ install:
 build_script:
   - mkdir build
   - cd build
-  - cmake .. -G "NMake Makefiles" -DCMAKE_WINDOWS_EXPORT_ALL_SYMBOLS=TRUE
-  - nmake
-  - nmake test
-  - nmake install
+  - cmake .. -DCMAKE_WINDOWS_EXPORT_ALL_SYMBOLS=TRUE
+  - make
+  - make test
+  - make install
