@@ -1,61 +1,43 @@
 # ProgressBar
 
 [![Travis](https://img.shields.io/travis/limix/progressbar.svg?style=flat-square)](https://travis-ci.org/limix/progressbar)
+[![Appveyor](https://ci.appveyor.com/api/projects/status/ccu47dffb2qvi8sa?svg=true)](https://ci.appveyor.com/project/Horta/progressbar)
 
-## What is this thing?
+ProgressBar is a C library for displaying attractive progress bars on the
+command line.
+It's heavily influenced by the ruby ProgressBar gem, whose api and behaviour it
+imitates.
 
-progressbar is a C-class (it's a convention, dammit) for displaying attractive
-progress bars on the command line. It's heavily influenced by the ruby ProgressBar
-gem, whose api and behaviour it imitates.
+## Usage
 
-## Ok, what the hell is a C-class, and how do I use one?
+```c
+#include "progressbar.h"
 
-progressbar is implemented in pure C99, but using a vaguely object-oriented convention.
-
-Example usage:
-
-```
-    progressbar *progress = progressbar_new("Loading",100);
-    for(int i=0; i < 100; i++)
-    {
-      // Do some stuff
-      progressbar_inc(progress);
-    }
-    progressbar_finish(progress);
+progressbar *progress = progressbar_new("Loading", 100);
+for(int i=0; i < 100; i++)
+{
+  // Do some stuff
+  progressbar_inc(progress);
+}
+progressbar_finish(progress);
 ```
 
-Example output (from `progressbar_demo.c`):
+Example output (from `test/demo.c`):
 
-![demo output](example_output/demo.png)
+![demo output](demo.gif)
 
-Additional examples can be found in `test/progressbar_demo.c`
+## Problems
 
-## Why did you do this?
-
-One of the things I miss most when I'm writing C instead of Ruby is the
-how ridiculously easy it is to write user-friendly, informative CLI apps
-in Ruby. A big part of that, at least for me, is the ProgressBar gem --
-and since most of the time when I'm writing C I'm doing so because I need
-a tool to handle some long-running, processor-intensive task, I'd really
-like to have a way of seeing at a glance how much time is remaining and
-how far along we've gotten. Enter progressbar!
-
-## Can I use it?
-
-Of course, if you're so inclined. progressbar is licensed under a simplified BSD license,
-so feel free to take it and run with it. Details can be found in the `LICENSE` file.
-
-## Why doesn't it compile?
-
-If progressbar fails to build because `termcap.h` isn't found, you're probably missing the ncurses dev libraries.
-
-    gcc -c -std=c99 -Iinclude lib/progressbar.c
-    lib/progressbar.c:13:45: fatal error: termcap.h: No such file or directory
-    compilation terminated.
-
+If you encounter any issue, please, [submit it](https://github.com/limix/progressbar/issues).
 
 ## Acknowledgements
 
+* **Danilo Horta** - [https://github.com/horta](https://github.com/horta)
 * **Johannes Buchner** - [https://github.com/JohannesBuchner](https://github.com/JohannesBuchner)
 * **Mariano Anaya** - [https://github.com/rmariano](https://github.com/rmariano)
 * **Trevor Fountain** - [https://github.com/doches](https://github.com/doches)
+
+## License
+
+This project is licensed under the MIT License - see the
+[LICENSE](LICENSE) file for details

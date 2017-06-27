@@ -6,40 +6,11 @@
 #ifndef PROGRESSBAR_H
 #define PROGRESSBAR_H
 
-#include <time.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-
 #ifdef __cplusplus
 extern "C" {
 #endif /* ifdef __cplusplus */
 
-/**
- * Progressbar data structure (do not modify or create directly)
- */
-typedef struct _progressbar_t
-{
-    /// maximum value
-    unsigned long max;
-
-    /// current value
-    unsigned long value;
-
-    /// time progressbar was started
-    time_t start;
-
-    /// label
-    const char *label;
-
-    /// characters for the beginning, filling and end of the
-    /// progressbar. E.g. |###    | has |#|
-    struct {
-        char begin;
-        char fill;
-        char end;
-    } format;
-} progressbar;
+typedef struct _progressbar_t progressbar;
 
 /// Create a new progressbar with the specified label and number of steps.
 ///
@@ -80,29 +51,12 @@ progressbar* progressbar_new_with_format(const char   *label,
                                          unsigned long max,
                                          const char   *format);
 
-/// Free an existing progress bar. Don't call this directly; call
-// *progressbar_finish* instead.
-void progressbar_free(progressbar *bar);
-
 /// Increment the given progressbar. Don't increment past the initialized # of
 // steps, though.
 void progressbar_inc(progressbar *bar);
 
-/// Set the current status on the given progressbar.
-void progressbar_update(progressbar  *bar,
-                        unsigned long value);
-
-/// Set the label of the progressbar. Note that no rendering is done. The label
-// is simply set so that the next
-/// rendering will use the new label. To immediately see the new label, call
-// progressbar_draw.
-/// Does not update display or copy the label
-void progressbar_update_label(progressbar *bar,
-                              const char  *label);
-
 /// Finalize (and free!) a progressbar. Call this when you're done, or if you
-// break out
-/// partway through.
+// break out partway through.
 void progressbar_finish(progressbar *bar);
 
 #ifdef __cplusplus

@@ -1,4 +1,7 @@
 #include <termcap.h> /* tgetent, tgetnum */
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
 #include <assert.h>
 #include <limits.h>
 #include "progressbar.h"
@@ -36,11 +39,11 @@ static void  progressbar_draw(const progressbar *bar);
 
 /**
  * Create a new progress bar with the specified label, max number of steps, and
- *format string.
+ * format string.
  * Note that `format` must be exactly three characters long, e.g. "<->" to
- *render a progress
+ * render a progress
  * bar like "<---------->". Returns NULL if there isn't enough memory to
- *allocate a progressbar
+ * allocate a progressbar
  */
 progressbar* progressbar_new_with_format(const char   *label,
                                          unsigned long max,
@@ -190,7 +193,7 @@ static void progressbar_draw(const progressbar *bar)
                                                                              time(
                                                                                  NULL),
                                                                              bar->
-    start))
+                                                                             start))
                                       : progressbar_calc_time_components(progressbar_remaining_seconds(
                                                                              bar));
 

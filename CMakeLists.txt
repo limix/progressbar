@@ -32,7 +32,6 @@ file(STRINGS "VERSION" PROGRESSBAR_VERSION)
 include_directories(include)
 include_directories(src)
 add_subdirectory(src)
-add_subdirectory(test)
 
 add_library(progressbar SHARED src/progressbar.c)
 add_library(progressbar_static STATIC src/progressbar.c)
@@ -54,3 +53,7 @@ install(TARGETS progressbar_static
         LIBRARY DESTINATION lib
     PUBLIC_HEADER DESTINATION include/progressbar)
 target_link_libraries(progressbar_static ${CURSES_LIBRARIES})
+
+add_subdirectory(test)
+enable_testing()
+add_test(demo test/demo)

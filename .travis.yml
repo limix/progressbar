@@ -5,16 +5,22 @@ compiler:
 - clang
 - gcc
 before_script:
-- mkdir build && pushd build && cmake .. && make && make test
-  && popd
+- mkdir build && pushd build && cmake .. && make && make test && popd
 - rm -rf build
 script:
 - mkdir dist && pushd dist && cmake .. && popd
-#- mv dist bgen-`cat VERSION`
-#- tar czf bgen-`cat VERSION`.tar.gz bgen-`cat VERSION`
-#- rm -rf dist
+- mv dist progressbar-`cat VERSION`
+- tar czf progressbar-`cat VERSION`.tar.gz progressbar-`cat VERSION`
+- rm -rf dist
 after_failure:
 - rm -rf * && cmake .. && make && make test ARGS="-V"
 notifications:
   email: false
-
+deploy:
+  provider: releases
+  api_key:
+    secure: E2X3xBtDA5ncPkTeYmU5Kvb9a5uqaG5zuBmS9NkNb5olSQFIM2W1kiMbTPvvE+PRdngNTPU0eWvkigStLLb23IMBh1cyogOhFg8o1Mm//0NY8lRGF1LviGzplOKuTxJVWgIATYG3aRVcioyChxUU/DDm+67iE5HII5G1NM4OxAtWxFDXLv+S90/i3U60I2vkMUOh6Ntx4mPeOmW70b2Ljy96cg64Q/uRzIUTm3mxL8l2hmufsHlzA7JANNz81hsOe0kUPx51OcP8g+qDm1FNW6OWKiocjmxlYv11n/+pdAUur50JhVUKwEZiBL4WLSOE/h6X5Zd3w+4Z7Ccsu7IGfEoC88vCASslfd+pqKSqZXsoEFGrIVyLEuVs3tjT5BAvYVGGlG08MjDg2+F8nSvj8+Ipzr3jMLYg1XUoR8ylHqoDI2lBuCC4397PJzSLxs+K2+fT3qKwZOjnbfZ3GEbWZ5I/X4GITkxIHJ0I6Rvf4xe1UJC1NNPq4oF9ETzcKTtVJIe8OOCVNwDAzwtCUI4JMPsWnXJQhvF1pSMYjqV6/mgqyFThJbr9dHhkkegHALj2NIk3VIsqdGUgVEjyBYMdUthTvwKXVjSWlR/cTOwuIjuxY95ljkz1TGvUEuZR8E4+fxFbf/azsabW9exxtxqJIihoN/Dhgw2ieKCEtP1THb4=
+  on:
+    tags: true
+    repo: limix/progressbar
+    branch: master
