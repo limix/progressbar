@@ -14,6 +14,7 @@ imitates.
 #include "progressbar.h"
 
 progressbar *progress = progressbar_new("Loading", 100);
+
 for(int i=0; i < 100; i++)
 {
   // Do some stuff
@@ -25,6 +26,44 @@ progressbar_finish(progress);
 Example output (from `test/demo.c`):
 
 ![demo output](demo.gif)
+
+## Install
+
+On Linux or macOS systems it can be as simple as
+```bash
+wget https://github.com/limix/progressbar/archive/0.1.2.tar.gz
+tar xzf 0.1.2.tar.gz
+cd progressbar-0.1.2
+mkdir build
+cd build
+cmake ..
+make
+sudo make install
+```
+assuming that you have the [ncurses](https://www.gnu.org/software/ncurses/)
+library installed and that ``cmake`` managed to find it.
+
+On Windows systems you might want to have a look at the
+[msys2](http://www.msys2.org) project.
+It provides Unix-like environment making it easier to install, use, build and
+port software on Windows.
+In particular, we need `gcc`, `ncurses`, and `cmake` packages:
+
+```dos
+pacman -S --needed ^
+    mingw-w64-x86_64-gcc ^
+    mingw-w64-x86_64-ncurses ^
+    mingw-w64-x86_64-cmake
+```
+
+From `progressbar` source directory, do
+```dos
+mkdir build
+cd build
+cmake .. -G "MinGW Makefiles" -DCMAKE_WINDOWS_EXPORT_ALL_SYMBOLS=TRUE ^
+         -DCMAKE_BUILD_TYPE=%BUILD_TYPE%
+cmake --build . --config Release --target install
+```
 
 ## Problems
 
