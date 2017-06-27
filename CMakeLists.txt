@@ -20,7 +20,7 @@ set(CMAKE_BUILD_TYPE Release)
 set(CMAKE_POSITION_INDEPENDENT_CODE ON)
 
 set(CURSES_NEED_NCURSES TRUE)
-find_package(Curses)
+# find_package(Curses)
 
 message(STATUS "CURSES_FOUND: ${CURSES_FOUND}")
 
