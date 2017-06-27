@@ -22,7 +22,7 @@ progressbar_finish(progress);
 
 Example output (from `test/demo.c`):
 
-![demo output](example_output/demo.png)
+![demo output](demo.gif)
 
 ## Problems
 

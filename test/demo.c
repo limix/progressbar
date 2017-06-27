@@ -1,7 +1,7 @@
 #include "progressbar.h"
 #include <unistd.h>
 
-#define SLEEP_US 100000
+#define SLEEP_US 20000
 
 /**
  * Example for progressbar usage
