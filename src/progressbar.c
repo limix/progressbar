@@ -166,40 +166,49 @@ static int progressbar_remaining_seconds(const progressbar *bar) {
     double offset = difftime(time(NULL), bar->start);
 
     if ((bar->value > 0) && (offset > 0)) {
-        return (offset / (double)bar->value) * (bar->max - bar->value);
+        return (int) (offset / (double)bar->value) * (bar->max - bar->value);
     } else {
         return 0;
     }
 }
 
 static progressbar_time_components progressbar_calc_time_components(int seconds) {
-    int hours = seconds / 3600;
+    int hours, minutes;
+    progressbar_time_components components;
+    
+    hours = seconds / 3600;
 
     seconds -= hours * 3600;
-    int minutes = seconds / 60;
+    minutes = seconds / 60;
     seconds -= minutes * 60;
 
-    progressbar_time_components components = { hours, minutes, seconds };
+    components.hours = hours;
+    components.minutes = minutes;
+    components.seconds = seconds;
     return components;
 }
 
 static void progressbar_draw(const progressbar *bar)
 {
-    int screen_width = get_screen_width();
-    int label_length = strlen(bar->label);
-    int bar_width    = progressbar_bar_width(screen_width, label_length);
-    int label_width  = progressbar_label_width(screen_width,
+    int screen_width, label_length, bar_width, label_width, progressbar_completed,
+        bar_piece_count, bar_piece_current;
+    progressbar_time_components eta;
+
+    screen_width = get_screen_width();
+    label_length = strlen(bar->label);
+    bar_width    = progressbar_bar_width(screen_width, label_length);
+    label_width  = progressbar_label_width(screen_width,
                                                label_length,
                                                bar_width);
 
-    int progressbar_completed = (bar->value >= bar->max);
-    int bar_piece_count       = bar_width - BAR_BORDER_WIDTH;
-    int bar_piece_current     = (progressbar_completed)
+    progressbar_completed = (bar->value >= bar->max);
+    bar_piece_count       = bar_width - BAR_BORDER_WIDTH;
+    bar_piece_current     = (progressbar_completed)
                                 ? bar_piece_count
                                 : bar_piece_count *
-                                ((double)bar->value / bar->max);
+                                (int) ((double)bar->value / bar->max);
 
-    progressbar_time_components eta = (progressbar_completed)
+    eta = (progressbar_completed)
                                       ? progressbar_calc_time_components(difftime(
                                                                              time(
                                                                                  NULL),
