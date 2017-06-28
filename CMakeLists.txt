@@ -22,11 +22,6 @@ set(CMAKE_POSITION_INDEPENDENT_CODE ON)
 set(CURSES_NEED_NCURSES TRUE)
 find_package(Curses)
 
-if (NOT CURSES_FOUND)
-  message(WARNING "curses and/or ncurses libraries could not be found. "
-                  "We have to asssume a fixed terminal width in that case.")
-endif()
-
 if (CURSES_FOUND)
   include_directories(${CURSES_INCLUDE_DIRS})
 endif()
@@ -43,8 +38,6 @@ add_subdirectory(src)
 
 if (CURSES_FOUND)
   add_definitions(-DCURSES_FOUND)
-else ()
-  add_definitions(-DCURSES_NOTFOUND)
 endif()
 
 add_library(progressbar SHARED src/progressbar.c)
@@ -61,13 +54,17 @@ install(TARGETS progressbar
         LIBRARY DESTINATION lib
         RUNTIME DESTINATION lib
     PUBLIC_HEADER DESTINATION include/progressbar)
-target_link_libraries(progressbar ${CURSES_LIBRARIES})
+if (CURSES_FOUND)
+  target_link_libraries(progressbar ${CURSES_LIBRARIES})
+endif()
 
 install(TARGETS progressbar_static
         ARCHIVE DESTINATION lib
         LIBRARY DESTINATION lib
     PUBLIC_HEADER DESTINATION include/progressbar)
-target_link_libraries(progressbar_static ${CURSES_LIBRARIES})
+if (CURSES_FOUND)
+  target_link_libraries(progressbar_static ${CURSES_LIBRARIES})
+endif()
 
 add_subdirectory(test)
 enable_testing()

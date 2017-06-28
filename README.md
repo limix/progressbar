@@ -37,9 +37,9 @@ Example output from `test/demo.c`:
 
 On Linux or macOS systems it can be as simple as
 ```bash
-wget https://github.com/limix/progressbar/archive/0.1.2.tar.gz
-tar xzf 0.1.2.tar.gz
-cd progressbar-0.1.2
+wget https://github.com/limix/progressbar/archive/0.1.3.tar.gz
+tar xzf 0.1.3.tar.gz
+cd progressbar-0.1.3
 mkdir build
 cd build
 cmake ..
