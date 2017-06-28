@@ -17,7 +17,7 @@ int main(void)
 
     for (int i = 0; i < max; i++) {
 #ifdef _WIN32
-        Sleep(SLEEP_US);
+        Sleep(SLEEP_US / 1000);
 #else /* ifdef _WIN32 */
         usleep(SLEEP_US);
 #endif /* ifdef _WIN32 */
