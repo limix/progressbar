@@ -10,8 +10,7 @@ extern "C" {
 /**
  * Progressbar data structure (do not modify or create directly)
  */
-typedef struct _progressbar_t
-{
+typedef struct _progressbar_t {
     /// maximum value
     unsigned long max;
 
@@ -45,8 +44,7 @@ typedef struct _progressbar_t
 // user is responsible for disposing
 ///         of the progressbar via progressbar_finish when finished with the
 // object.
-progressbar* progressbar_new(const char   *label,
-                             unsigned long max);
+progressbar *progressbar_new(const char *label, unsigned long max);
 
 /// Create a new progressbar with the specified label, number of steps, and
 // format string.
@@ -68,9 +66,8 @@ progressbar* progressbar_new(const char   *label,
 // user is responsible for disposing
 ///         of the progressbar via progressbar_finish when finished with the
 // object.
-progressbar* progressbar_new_with_format(const char   *label,
-                                         unsigned long max,
-                                         const char   *format);
+progressbar *progressbar_new_with_format(const char *label, unsigned long max,
+                                         const char *format);
 
 /// Free an existing progress bar. Don't call this directly; call
 // *progressbar_finish* instead.
@@ -81,16 +78,14 @@ void progressbar_free(progressbar *bar);
 void progressbar_inc(progressbar *bar);
 
 /// Set the current status on the given progressbar.
-void progressbar_update(progressbar  *bar,
-                        unsigned long value);
+void progressbar_update(progressbar *bar, unsigned long value);
 
 /// Set the label of the progressbar. Note that no rendering is done. The label
 // is simply set so that the next
 /// rendering will use the new label. To immediately see the new label, call
 // progressbar_draw.
 /// Does not update display or copy the label
-void progressbar_update_label(progressbar *bar,
-                              const char  *label);
+void progressbar_update_label(progressbar *bar, const char *label);
 
 /// Finalize (and free!) a progressbar. Call this when you're done, or if you
 // break out

@@ -24,8 +24,7 @@ typedef struct _progressbar_t progressbar;
 // user is responsible for disposing
 ///         of the progressbar via progressbar_finish when finished with the
 // object.
-progressbar* progressbar_new(const char   *label,
-                             unsigned long max);
+progressbar *progressbar_new(const char *label, unsigned long max);
 
 /// Create a new progressbar with the specified label, number of steps, and
 // format string.
@@ -47,9 +46,8 @@ progressbar* progressbar_new(const char   *label,
 // user is responsible for disposing
 ///         of the progressbar via progressbar_finish when finished with the
 // object.
-progressbar* progressbar_new_with_format(const char   *label,
-                                         unsigned long max,
-                                         const char   *format);
+progressbar *progressbar_new_with_format(const char *label, unsigned long max,
+                                         const char *format);
 
 /// Increment the given progressbar. Don't increment past the initialized # of
 // steps, though.
