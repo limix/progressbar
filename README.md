@@ -1,6 +1,6 @@
 # ProgressBar
 
-[![Travis](https://img.shields.io/travis/limix/progressbar.svg?style=flat-square)](https://travis-ci.org/limix/progressbar)
+[![Travis](https://img.shields.io/travis/limix/progressbar.svg?style=flat)](https://travis-ci.org/limix/progressbar)
 [![Appveyor](https://ci.appveyor.com/api/projects/status/ccu47dffb2qvi8sa?svg=true)](https://ci.appveyor.com/project/Horta/progressbar)
 
 ProgressBar is a C library for displaying attractive progress bars on the
