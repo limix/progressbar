@@ -37,14 +37,7 @@ Example output from `test/demo.c`:
 
 On Linux or macOS systems it can be as simple as
 ```bash
-wget https://github.com/limix/progressbar/archive/0.1.5.tar.gz
-tar xzf 0.1.5.tar.gz
-cd progressbar-0.1.5
-mkdir build
-cd build
-cmake ..
-make
-sudo make install
+bash <(curl -fsSL https://raw.githubusercontent.com/limix/progressbar/master/install)
 ```
 assuming that you have [ncurses](https://www.gnu.org/software/ncurses/)
 library installed and that ``cmake`` managed to find it.
