@@ -180,6 +180,7 @@ progressbar_calc_time_components(int seconds) {
 static void progressbar_draw(const progressbar *bar) {
     int screen_width, label_length, bar_width, label_width,
         progressbar_completed, bar_piece_count, bar_piece_current;
+    int t;
     progressbar_time_components eta;
 
     screen_width = get_screen_width();
@@ -195,11 +196,13 @@ static void progressbar_draw(const progressbar *bar) {
             ? bar_piece_count
             : bar_piece_count * (int)((double)bar->value / bar->max);
 
-    eta =
-        (progressbar_completed)
-            ? progressbar_calc_time_components(difftime(time(NULL), bar->start))
-            : progressbar_calc_time_components(
-                  progressbar_remaining_seconds(bar));
+    if (progressbar_completed) {
+        t = (int)difftime(time(NULL), bar->start);
+        eta = progressbar_calc_time_components(t);
+    } else {
+        t = progressbar_remaining_seconds(bar);
+        eta = progressbar_calc_time_components(t);
+    }
 
     if (label_width == 0) {
         // The label would usually have a trailing space, but in the case that

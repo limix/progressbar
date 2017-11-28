@@ -1,6 +1,8 @@
-project(ProgressBar C)
+cmake_minimum_required(VERSION 3.2 FATAL_ERROR)
+file(STRINGS "VERSION" PROGRESSBAR_VERSION)
+project(ProgressBar VERSION ${PROGRESSBAR_VERSION} LANGUAGES C)
 
-cmake_minimum_required(VERSION 2.6.4)
+include(GNUInstallDirs)
 
 if (CMAKE_C_COMPILER_ID STREQUAL "GNU")
   execute_process(COMMAND ${CMAKE_C_COMPILER} -dumpversion
@@ -29,8 +31,6 @@ if(${CMAKE_SYSTEM_NAME} MATCHES "Windows")
   add_definitions(-D_CRT_SECURE_NO_WARNINGS)
 endif()
 
-file(STRINGS "VERSION" PROGRESSBAR_VERSION)
-
 include_directories(include)
 include_directories(src)
 add_subdirectory(src)
@@ -49,17 +49,18 @@ set_target_properties(progressbar
   PUBLIC_HEADER include/progressbar/progressbar.h)
 
 install(TARGETS progressbar
-        ARCHIVE DESTINATION lib
-        LIBRARY DESTINATION lib
-        RUNTIME DESTINATION lib
+    ARCHIVE  DESTINATION ${CMAKE_INSTALL_LIBDIR}
+    LIBRARY  DESTINATION ${CMAKE_INSTALL_LIBDIR}
+    RUNTIME  DESTINATION ${CMAKE_INSTALL_BINDIR}
     PUBLIC_HEADER DESTINATION include/progressbar)
 if (CURSES_FOUND)
   target_link_libraries(progressbar ${CURSES_LIBRARIES})
 endif()
 
 install(TARGETS progressbar_static
-        ARCHIVE DESTINATION lib
-        LIBRARY DESTINATION lib
+    ARCHIVE  DESTINATION ${CMAKE_INSTALL_LIBDIR}
+    LIBRARY  DESTINATION ${CMAKE_INSTALL_LIBDIR}
+    RUNTIME  DESTINATION ${CMAKE_INSTALL_BINDIR}
     PUBLIC_HEADER DESTINATION include/progressbar)
 if (CURSES_FOUND)
   target_link_libraries(progressbar_static ${CURSES_LIBRARIES})
