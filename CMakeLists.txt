@@ -28,6 +28,7 @@ if (CURSES_FOUND)
 endif()
 
 if(${CMAKE_SYSTEM_NAME} MATCHES "Windows")
+  set(CMAKE_WINDOWS_EXPORT_ALL_SYMBOLS TRUE)
   add_definitions(-D_CRT_SECURE_NO_WARNINGS)
 endif()
 
