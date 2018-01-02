@@ -7,6 +7,8 @@ set FILE=progressbar-%VERSION%.zip
 set DIR=progressbar-%VERSION%
 set URL=https://github.com/limix/progressbar/archive/%VERSION%.zip
 
+echo [0/5] Library(progressbar==%VERSION%)
+
 :: Ancient Windows don't support TLS 1.1 and 1.2, so we fall back to insecure download.
 set Version=
 for /f "skip=1" %%v in ('wmic os get version') do if not defined Version set Version=%%v
@@ -40,15 +42,13 @@ curl %CURL_INSECURE% -fsS -o %FILE% -L %URL% >>%LOG_FILE% 2>&1
 if %ERRORLEVEL% NEQ 0 (echo FAILED. && echo Log can be found at %LOG_FILE%. && exit /B 1) else (echo done.)
 
 echo|set /p="[2/5] Extracting... "
-rem 7z x %FILE% -y >>%LOG_FILE% 2>&1
 powershell.exe -nologo -noprofile -command "& { Add-Type -A 'System.IO.Compression.FileSystem'; [IO.Compression.ZipFile]::ExtractToDirectory('%FILE%', '.'); }"
-
 if %ERRORLEVEL% NEQ 0 (echo FAILED. && echo Log can be found at %LOG_FILE%. && exit /B 1) else (echo done.)
 
 cd %DIR% && mkdir build && cd build
 
 echo|set /p="[3/5] Configuring... "
-cmake .. -G "NMake Makefiles" -DCMAKE_BUILD_TYPE=Release >>%LOG_FILE% 2>&1
+cmake .. -G "NMake Makefiles" -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX="%programfiles%\progressbar" >>%LOG_FILE% 2>&1
 if %ERRORLEVEL% NEQ 0 (echo FAILED. && echo Log can be found at %LOG_FILE%. && exit /B 1) else (echo done.)
 
 echo|set /p="[4/5] Compiling... "
@@ -57,6 +57,7 @@ if %ERRORLEVEL% NEQ 0 (echo FAILED. && echo Log can be found at %LOG_FILE%. && e
 
 echo|set /p="[5/5] Installing... "
 nmake install >>%LOG_FILE% 2>&1
+set PATH=%PATH%;%programfiles%\progressbar\bin
 if %ERRORLEVEL% NEQ 0 (echo FAILED. && echo Log can be found at %LOG_FILE%. && exit /B 1) else (echo done.)
 
 cd %ORIGIN% >nul 2>&1

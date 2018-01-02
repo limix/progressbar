@@ -1,6 +1,6 @@
 # ProgressBar
 
-[![Linux / macOS build](https://img.shields.io/travis/limix/progressbar/master.svg?label=Linux%20%2F%20macOS&style=flat-square)](https://travis-ci.org/limix/progressbar) [![Windows build](https://img.shields.io/appveyor/ci/horta/progressbar/master.svg?label=Windows&style=flat-square)](https://ci.appveyor.com/project/Horta/progressbar/branch/master)
+[![Release](http://github-release-version.herokuapp.com/github/limix/progressbar/release.svg?style=flat-square)](https://github.com/limix/progressbar/releases/latest) [![Linux / macOS build](https://img.shields.io/travis/limix/progressbar/master.svg?label=Linux%20%2F%20macOS&style=flat-square)](https://travis-ci.org/limix/progressbar) [![Windows build](https://img.shields.io/appveyor/ci/horta/progressbar/master.svg?label=Windows&style=flat-square)](https://ci.appveyor.com/project/Horta/progressbar/branch/master)
 
 ProgressBar is a C library for displaying attractive progress bars on the command line.
 It's heavily influenced by the ruby ProgressBar gem, whose api and behaviour it imitates.
