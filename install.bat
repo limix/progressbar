@@ -1,9 +1,8 @@
 @echo off
 
 :: Configuration
-set URL=https://raw.githubusercontent.com/limix/progressbar/master/VERSION
-for /f %%i in ('curl -s %URL%') do set VERSION=%%i
-set VERSION=$(curl -s %URL%)
+set VERSION_URL=https://raw.githubusercontent.com/limix/progressbar/master/VERSION
+for /f %%i in ('curl -s %VERSION_URL%') do set VERSION=%%i
 set FILE=progressbar-%VERSION%.zip
 set DIR=progressbar-%VERSION%
 set URL=https://github.com/limix/progressbar/archive/%VERSION%.zip
@@ -25,10 +24,6 @@ if defined OLD_WINDOWS (
   set CURL_INSECURE=--insecure
 )
 
-:: Look for 7z to unzip downloaded file.
-where /Q 7z
-if %ERRORLEVEL% NEQ 0 echo 7z wasn't found. Please, install it so I can proceed. && exit /B 1
-
 SET ORIGIN=%cd%
 call :joinpath "%ORIGIN%" "install.log"
 SET LOG_FILE=%Result%
@@ -45,7 +40,9 @@ curl %CURL_INSECURE% -fsS -o %FILE% -L %URL% >>%LOG_FILE% 2>&1
 if %ERRORLEVEL% NEQ 0 (echo FAILED. && echo Log can be found at %LOG_FILE%. && exit /B 1) else (echo done.)
 
 echo|set /p="[2/5] Extracting... "
-7z x %FILE% -y >>%LOG_FILE% 2>&1
+rem 7z x %FILE% -y >>%LOG_FILE% 2>&1
+powershell.exe -nologo -noprofile -command "& { Add-Type -A 'System.IO.Compression.FileSystem'; [IO.Compression.ZipFile]::ExtractToDirectory('%FILE%', '.'); }"
+
 if %ERRORLEVEL% NEQ 0 (echo FAILED. && echo Log can be found at %LOG_FILE%. && exit /B 1) else (echo done.)
 
 cd %DIR% && mkdir build && cd build

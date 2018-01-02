@@ -184,7 +184,7 @@ static void progressbar_draw(const progressbar *bar) {
     progressbar_time_components eta;
 
     screen_width = get_screen_width();
-    label_length = strlen(bar->label);
+    label_length = (int) strlen(bar->label);
     bar_width = progressbar_bar_width(screen_width, label_length);
     label_width =
         progressbar_label_width(screen_width, label_length, bar_width);
