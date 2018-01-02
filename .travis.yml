@@ -2,7 +2,7 @@ os:
   - linux
   - osx
 dist: trusty
-sudo: required
+sudo: false
 language: c
 compiler:
 - clang
