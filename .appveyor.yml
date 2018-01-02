@@ -55,8 +55,8 @@ build_script:
     - cmake --build . --config %CONFIGURATION% --target install
 
 test_script:
-    - copy %CONFIGURATION%\*.* . /Y
+    - if exist %CONFIGURATION% copy %CONFIGURATION%\*.* . /Y
     - ctest -V --output-on-failure -C %CONFIGURATION%
-    - if NOT exist %APPVEYOR_BUILD_FOLDER%/lib/libprogressbar.lib exit 1
-    - if NOT exist %APPVEYOR_BUILD_FOLDER%/bin/libprogressbar.dll exit 1
-    - if NOT exist %APPVEYOR_BUILD_FOLDER%/lib/libprogressbar_static.lib exit 1
+    - if NOT exist %APPVEYOR_BUILD_FOLDER%\lib\libprogressbar.lib exit 1
+    - if NOT exist %APPVEYOR_BUILD_FOLDER%\bin\libprogressbar.dll exit 1
+    - if NOT exist %APPVEYOR_BUILD_FOLDER%\lib\libprogressbar_static.lib exit 1
