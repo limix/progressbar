@@ -21,6 +21,6 @@ build_script:
   - cmake .. -G "MinGW Makefiles" -DCMAKE_BUILD_TYPE=%BUILD_TYPE% -DCMAKE_INSTALL_PREFIX=%APPVEYOR_BUILD_FOLDER%
   - cmake --build . --config %BUILD_TYPE% --target install
   - ctest
-  - if NOT exist %APPVEYOR_BUILD_FOLDER%/lib/progressbar.lib exit 1
-  - if NOT exist %APPVEYOR_BUILD_FOLDER%/lib/progressbar.dll exit 1
-  - if NOT exist %APPVEYOR_BUILD_FOLDER%/lib/progressbar_static.lib exit 1
+  - if NOT exist %APPVEYOR_BUILD_FOLDER%/lib/libprogressbar.lib exit 1
+  - if NOT exist %APPVEYOR_BUILD_FOLDER%/bin/libprogressbar.dll exit 1
+  - if NOT exist %APPVEYOR_BUILD_FOLDER%/lib/libprogressbar_static.lib exit 1
