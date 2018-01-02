@@ -1,4 +1,4 @@
-# limix 
+# limix
 # ---------
 #
 # Common configuration and handy functions for limix projects.
@@ -20,7 +20,7 @@ endfunction(display_welcome)
 
 macro(limix_config)
     enable_testing()
-    
+
     if (NOT CMAKE_BUILD_TYPE)
         set(MSG "CMAKE_BUILD_TYPE has not been set.")
         set(MSG "${MSG} Using the default value \"Release\".")
@@ -89,9 +89,7 @@ function(add_library_type TYPE NAME VERSION SOURCES PUBLIC_HEADERS LIBS)
     endif()
 
 
-    if (TYPE MATCHES "SHARED")
-        easy_install(${NAME} include/${NAME})
-    endif()
+    easy_install(${NAME} include/${NAME})
 
     target_link_libraries(${NAME} "${LIBS}")
 endfunction(add_library_type)
