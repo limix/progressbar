@@ -1,4 +1,4 @@
-# limix 
+# limix
 # ---------
 #
 # Common configuration and handy functions for limix projects.
@@ -20,7 +20,7 @@ endfunction(display_welcome)
 
 macro(limix_config)
     enable_testing()
-    
+
     if (NOT CMAKE_BUILD_TYPE)
         set(MSG "CMAKE_BUILD_TYPE has not been set.")
         set(MSG "${MSG} Using the default value \"Release\".")
@@ -69,13 +69,19 @@ function(easy_set_target_property NAME PROPERTY VALUE)
     set_target_properties(${NAME} PROPERTIES ${PROPERTY} "${VALUE}")
 endfunction(easy_set_target_property)
 
-function(easy_install TARGET_NAME INCLUDE_DIR)
+function(easy_shared_install TARGET_NAME INCLUDE_DIR)
     install(TARGETS ${TARGET_NAME}
         ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}
         LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
         RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
         PUBLIC_HEADER DESTINATION ${INCLUDE_DIR})
-endfunction(easy_install)
+endfunction(easy_shared_install)
+
+function(easy_static_install TARGET_NAME INCLUDE_DIR)
+    install(TARGETS ${TARGET_NAME}
+        ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}
+        LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR})
+endfunction(easy_static_install)
 
 function(add_library_type TYPE NAME VERSION SOURCES PUBLIC_HEADERS LIBS)
     if (TYPE MATCHES "STATIC")
@@ -86,11 +92,9 @@ function(add_library_type TYPE NAME VERSION SOURCES PUBLIC_HEADERS LIBS)
     easy_set_target_property(${NAME} VERSION ${VERSION})
     if (TYPE MATCHES "SHARED")
         easy_set_target_property(${NAME} PUBLIC_HEADER "${PUBLIC_HEADERS}")
-    endif()
-
-
-    if (TYPE MATCHES "SHARED")
-        easy_install(${NAME} include/${NAME})
+        easy_shared_install(${NAME} include/${NAME})
+    else()
+        easy_static_install(${NAME} include/${NAME})
     endif()
 
     target_link_libraries(${NAME} "${LIBS}")

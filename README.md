@@ -35,6 +35,16 @@ Example output from `test/demo.c`:
 
 ## Install
 
+### Conda package manager
+
+We provide a [conda](https://conda.io/docs/) distribution of progressbar under [conda-forge](https://conda-forge.org) channel:
+
+```bash
+conda install -c conda-forge c-progressbar
+```
+
+### Building yourself
+
 On Linux or macOS systems it can be as simple as
 ```bash
 bash <(curl -fsSL https://raw.githubusercontent.com/limix/progressbar/master/install)
@@ -64,6 +74,7 @@ cmake --build . --config Release --target install
 ## Problems
 
 If you encounter any issue, please, [submit it](https://github.com/limix/progressbar/issues).
+Suggestions and ideas are also welcome.
 
 ## Acknowledgements
 
