@@ -16,10 +16,11 @@ install:
     \""
   - ps: Get-Command sh.exe -All | Remove-Item
 
-
 build_script:
-  - mkdir build
-  - cd build
-  - cmake .. -G "MinGW Makefiles" -DCMAKE_WINDOWS_EXPORT_ALL_SYMBOLS=TRUE -DCMAKE_BUILD_TYPE=%BUILD_TYPE%
+  - mkdir build && cd build
+  - cmake .. -G "MinGW Makefiles" -DCMAKE_BUILD_TYPE=%BUILD_TYPE% -DCMAKE_INSTALL_PREFIX=%APPVEYOR_BUILD_FOLDER%
   - cmake --build . --config %BUILD_TYPE% --target install
-  - test\demo.exe
+  - ctest
+  - if NOT exist %APPVEYOR_BUILD_FOLDER%/lib/progressbar.lib exit 1
+  - if NOT exist %APPVEYOR_BUILD_FOLDER%/lib/progressbar.dll exit 1
+  - if NOT exist %APPVEYOR_BUILD_FOLDER%/lib/progressbar_static.lib exit 1
