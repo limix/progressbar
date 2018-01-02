@@ -39,7 +39,6 @@ environment:
       APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2015
 
 init:
-    - ps: iex ((new-object net.webclient).DownloadString('https://raw.githubusercontent.com/appveyor/ci/master/scripts/enable-rdp.ps1'))
     - if "%APPVEYOR_BUILD_WORKER_IMAGE%"=="Visual Studio 2017" if "%GENERATOR%"=="NMake Makefiles" if "%PLATFORM%"=="x86" call "C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\VC\Auxiliary\Build\vcvars32.bat"
     - if "%APPVEYOR_BUILD_WORKER_IMAGE%"=="Visual Studio 2017" if "%GENERATOR%"=="NMake Makefiles" if "%PLATFORM%"=="x64" call "C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\VC\Auxiliary\Build\vcvars64.bat"
     - if "%APPVEYOR_BUILD_WORKER_IMAGE%"=="Visual Studio 2015" if "%GENERATOR%"=="NMake Makefiles" if "%PLATFORM%"=="x86" call "C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\vcvarsall.bat" x86
@@ -61,6 +60,3 @@ test_script:
     - if NOT exist %APPVEYOR_BUILD_FOLDER%/lib/libprogressbar.lib exit 1
     - if NOT exist %APPVEYOR_BUILD_FOLDER%/bin/libprogressbar.dll exit 1
     - if NOT exist %APPVEYOR_BUILD_FOLDER%/lib/libprogressbar_static.lib exit 1
-
-on_finish:
-  - ps: $blockRdp = $true; iex ((new-object net.webclient).DownloadString('https://raw.githubusercontent.com/appveyor/ci/master/scripts/enable-rdp.ps1'))
